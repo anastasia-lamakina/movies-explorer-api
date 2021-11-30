@@ -8,6 +8,7 @@ const errorMessages = {
   unauthorizedAccess: 'Необходима авторизация',
   serverError: 'На сервере произошла ошибка.',
   pageNotFound: 'Страница не найдена',
+  invalidUrl: 'Передан некоректный url',
 };
 
 module.exports = {

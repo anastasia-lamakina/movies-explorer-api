@@ -25,7 +25,7 @@ router.post(
       thumbnail: Joi.string().required().custom(validateURL),
       nameRU: Joi.string().required(),
       nameEN: Joi.string().required(),
-      movieId: Joi.string().required().length(24).hex(),
+      movieId: Joi.number(),
     }),
   }),
   saveMovie,

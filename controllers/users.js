@@ -41,16 +41,17 @@ const createUser = (req, res, next) => {
           next(err);
         }
       });
-  });
+  }).catch();
 };
 
 const updateUser = (req, res, next) => {
-  const { name } = req.body;
+  const { name, email } = req.body;
 
   User.findByIdAndUpdate(
     req.user._id,
     {
       name,
+      email,
     },
     {
       new: true,
@@ -69,6 +70,12 @@ const updateUser = (req, res, next) => {
         next(
           new BadRequestError(
             errorMessages.incorrectDataPassed,
+          ),
+        );
+      } else if (err.name === 'MongoServerError' && err.code === 11000) {
+        next(
+          new ConflictError(
+            errorMessages.userConflict,
           ),
         );
       } else if (err.name === 'CastError') {

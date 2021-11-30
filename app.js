@@ -10,7 +10,6 @@ const {
   moviesRouter,
 } = require('./routes');
 const {
-  protectRouteHandler,
   authHandler,
   errorHandler,
   requestLoggerHandler,
@@ -48,8 +47,6 @@ app.use(authHandler);
 
 app.use('/users', usersRouter);
 app.use('/movies', moviesRouter);
-
-app.use(protectRouteHandler);
 
 app.use(errorLoggerHandler);
 app.use(errors());

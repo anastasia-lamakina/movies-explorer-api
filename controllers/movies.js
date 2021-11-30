@@ -60,14 +60,13 @@ const deleteMovieById = (req, res, next) => {
     .then((movie) => {
       if (movie) {
         if (movie.owner.toString() === req.user._id) {
-          Movie.findByIdAndDelete(req.params.movieId).then((deletedMovie) => {
+          return Movie.findByIdAndDelete(req.params.movieId).then((deletedMovie) => {
             res.send(deletedMovie);
           });
-        } else {
-          throw new ForbiddenError(
-            errorMessages.movieForbiddenDelete,
-          );
         }
+        throw new ForbiddenError(
+          errorMessages.movieForbiddenDelete,
+        );
       } else {
         throw new NotFoundError(errorMessages.movieNotFound);
       }
