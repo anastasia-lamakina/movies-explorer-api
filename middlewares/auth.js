@@ -5,11 +5,12 @@ const { errorMessages } = require('../utils/constants');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.headers;
-  if (!authorization) {
+  const { cookie } = req.headers;
+
+  if (!cookie) {
     next(new UnauthorizedAccessError(errorMessages.unauthorizedAccess));
   } else {
-    const token = authorization.replace('Bearer ', '');
+    const token = cookie.replace('jwt=', '');
 
     try {
       req.user = jwt.verify(
